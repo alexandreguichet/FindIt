@@ -18,7 +18,9 @@ use_config = "SPI" #one of ["SPI", "I2C"]
 
 #the register, these are the addresses for BMI160,
 #replace by your own Cynric! 
-register = {"acc_z_15_8": 0x17, 
+register = {"chip_id": 0x00,
+            "rev_id": 0x01,
+            "acc_z_15_8": 0x17, 
             "acc_z_7_0": 0x16,
             "acc_y_15_8": 0x15,
             "acc_y_7_0": 0x14,
@@ -36,13 +38,13 @@ register = {"acc_z_15_8": 0x17,
 # Settings
 #================================================
 from tmla import read_and_save as rsav
+from tmla import write_and_check as wach
+from tmla import read as rd
 
 from pisensor import PiSensorAdapter
 from testbench import Testbench
 
 tb = Testbench()
-
-tb.use_adapter(use_config)
 
 #load registermap into register
 for n, v in register.items():
@@ -75,8 +77,8 @@ I2C_config = {'name': config_name,
               'default_value': default_value,}
 
 #Create and configure I2C port
-I2C = PiSensorAdapter("MySensor1", device_address, I2C_config)
-tb.add_sensor(I2C)
+#I2C = PiSensorAdapter("MySensor1", device_address, I2C_config)
+#tb.add_sensor(I2C)
 
 #================================================
 # SPI protocol
@@ -98,3 +100,5 @@ SPI_config = {'name': config_name,
 #Create and configure SPI port
 SPI = PiSensorAdapter("MySensor2", device_address, SPI_config)
 tb.add_sensor(SPI)
+
+tb.select_sensor(["MySensor2"])

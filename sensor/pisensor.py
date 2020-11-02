@@ -7,6 +7,10 @@ Created on Sat Oct 17 14:39:06 2020
 
 import smbus2
 import spidev
+import RPi.GPIO as GPIO
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
 
 class PiSensorAdapter():
     
@@ -15,7 +19,7 @@ class PiSensorAdapter():
         self.device_address = device_address
         self._config = config
         self._open_sensor()
-        self._word_length = 1
+        self._word_length = 8
         
     @property
     def config(self):
@@ -34,22 +38,29 @@ class PiSensorAdapter():
         self._word_length = value
 
     def _open_sensor(self):
-        if self.name.upper() in ["SPI", "SPI3", "SPI4"]:
-            #TODO: spidev stuff
-            print("to be done")
-        elif self.name.upper() in ["I2C"]:
-            self.bus = smbus2.SMBus(3)
+        if self._config["name"].upper() in ["SPI", "SPI3", "SPI4"]:
+            self.mSPI = spidev.SpiDev()
+            self.mSPI.open(0,0)
+            self.mSPI.max_speed_hz = int(10e6)
+            
+        elif self._config["name"].upper() in ["I2C"]:
+            self.bus = smbus2.SMBus(1)
             self.bus.write_byte_data(self.device_address, 0x6b, 0)            
         
-    def _read_reg(self, data: int, payload_words: int):
+    def _read_register(self, data: int, payload_words: int):
         #Implement burst_read here
         #SPI reading
-        if self.name.upper() in ["SPI", "SPI3", "SPI4"]:
-            reg = data >> (payload_words * self.word_length) & 0x7F
-            result = 0 #TODO: Implement spidev readability
-            
-        #I2C reading 
-        elif self.name.upper() in ["I2C"]:
+        if self._config["name"].upper() in ["SPI", "SPI3", "SPI4"]:
+            reg = [data >> (payload_words * self.word_length)]         
+            i=0
+            while i < payload_words:
+                reg.append(0)
+                i += 1      
+            result = self.mSPI.xfer2(reg)
+            result.pop(0)
+        elif self._config["name"].upper() in ["I2C"]:
             reg = data >> ((payload_words * self.word_length) + 8)  
-            result = [self.bus.read_byte_data(self.device_address, reg + i) for i in range(payload_words)] #burst read  
-        return result 
+            result = [self.bus.read_byte_data(self.device_address, reg + i) for i in range(payload_words)] #burst read
+        return result
+
+

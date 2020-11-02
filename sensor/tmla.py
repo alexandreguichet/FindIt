@@ -8,9 +8,28 @@ Test Meta-Language Abstraction
 
 tb = None
 
+def read(register_name: str, number_of_items: int=1):
+    """
+    Read the register
+
+    Parameters
+    ----------
+    register_name : str
+        The register to be read.
+    number_of_items : int
+        Number of registers to be read.
+
+    Returns
+    -------
+    read_value : List([str, int])
+        The read value from the sensor as list.
+    """
+    read_value = tb.read_register(register_name, number_of_items)
+    return read_value 
+
 def read_and_save(variable_name: str, register_name: str, number_of_items: int=1):
     """
-    
+    Read the register and save the value inside the testbench
 
     Parameters
     ----------
@@ -24,7 +43,7 @@ def read_and_save(variable_name: str, register_name: str, number_of_items: int=1
     Returns
     -------
     read_value : List([str, int])
-        The read value from the sensor as List.
+        The read value from the sensor as list.
     """
     read_value = tb.read_register(register_name, number_of_items)
     tb.set_variable(variable_name, read_value)    
