@@ -9,7 +9,7 @@ Created on Sat Oct 17 14:43:14 2020
 # Variables
 #================================================
 #the device address, put in there in which port it appears with i2c_detect.
-device_address = 0x18
+device_address = 0x68
 
 
 #Use config
@@ -31,7 +31,8 @@ register = {"chip_id": 0x00,
             "gyr_y_15_8": 0x0F,
             "gyr_y_7_0": 0x0E, 
             "gyr_x_15_8": 0x0D,
-            "gyr_x_7_0": 0x0C}
+            "gyr_x_7_0": 0x0C,
+            "CMD": 0x7E,}
 
 
 #================================================
@@ -40,6 +41,8 @@ register = {"chip_id": 0x00,
 from tmla import read_and_save as rsav
 from tmla import write_and_check as wach
 from tmla import read as rd
+from tmla import write as wr
+from tmla import sign
 
 from pisensor import PiSensorAdapter
 from testbench import Testbench
@@ -77,8 +80,8 @@ I2C_config = {'name': config_name,
               'default_value': default_value,}
 
 #Create and configure I2C port
-#I2C = PiSensorAdapter("MySensor1", device_address, I2C_config)
-#tb.add_sensor(I2C)
+I2C = PiSensorAdapter("MySensor1", device_address, I2C_config)
+tb.add_sensor(I2C)
 
 #================================================
 # SPI protocol

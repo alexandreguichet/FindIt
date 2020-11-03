@@ -55,14 +55,48 @@ class Testbench(object):
             r = sen._read_register(data, payload_words) #result of the burst read       
             results.append(r)
         return results
+    
+    def write_register(self, register_name: str, value: [int, list]) -> list:
+        """
+        Read Register
         
-    def write_register(self, register_name: str, value: [list, int]):
-        #TODO: implement write_register
-        print("TODO")        
+        Parameters
+        ----------
+        register_name : str
+            Register name
+        
+        value : [int, list] 
+            Value to be written. Burst write if value is of type list.
+            
+        """
+        results = list()
+        sensors = [self.sensor[i] for i in self._main_sensor]
+        for sen in sensors:
+            #Create byte with data   
+            data = 0
+            conf = sen.config
+                       
+            payload_words = len(value)
+            
+            conf["default_value"]["register_address"] = self.get_register(register_name)
+            
+            for field in [f for f in conf["write_date"] if f != "value"]:
+                data = data << conf["length"][field]
+                data |= conf["default_value"][field]
+                
+            for v in value:
+                data = data << conf["length"]["value"]
+                data |= v 
+            
+            sen._write_register(data, payload_words) #result of the burst read           
     
     def delay(self, delay: [float, int]=0):
         time.sleep(delay)
         
+    def _to_list(self, value: [int, list]) -> list:
+        if type(value) == int:
+            value = [value]
+        return value
 #-----------------------------------------------------------------------------
 # Variables/Properties
         
