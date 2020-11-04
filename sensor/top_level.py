@@ -35,12 +35,12 @@ class FindItSensor():
          y_pos_0, y_pos_1,
          z_pos_0, z_pos_1] = data[0]
                 
-        z_pos = self.sign((z_pos_1 << 8) + z_pos_0, 16)*0.488
-        y_pos = self.sign((y_pos_1 << 8) + y_pos_0, 16)*0.488
-        x_pos = self.sign((x_pos_1 << 8) + x_pos_0, 16)*0.488
-        z_gyr = self.sign((z_gyr_1 << 8) + z_gyr_0, 16)*0.488
-        y_gyr = self.sign((y_gyr_1 << 8) + y_gyr_0, 16)*0.488
-        x_gyr = self.sign((x_gyr_1 << 8) + x_gyr_0, 16)*0.488
+        z_pos = self.sign((z_pos_1 << 8) + z_pos_0, 16)/2**14*1000
+        y_pos = self.sign((y_pos_1 << 8) + y_pos_0, 16)/2**14*1000
+        x_pos = self.sign((x_pos_1 << 8) + x_pos_0, 16)/2**14*1000
+        z_gyr = self.sign((z_gyr_1 << 8) + z_gyr_0, 16)/2**14*1000
+        y_gyr = self.sign((y_gyr_1 << 8) + y_gyr_0, 16)/2**14*1000
+        x_gyr = self.sign((x_gyr_1 << 8) + x_gyr_0, 16)/2**14*1000
     
         t = time.time() - self.start_time
         delta_time = t - self.data["time"][-1:].values[0]
