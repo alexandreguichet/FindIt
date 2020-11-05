@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Nov  2 16:27:01 2020
+Create
+d on Mon Nov  2 16:27:01 2020
+
+
+
 
 @author: pi
 """
@@ -20,7 +24,7 @@ class FindItSensor():
                'x_pos', 'y_pos', 'z_pos', 
                'x_gyr', 'y_gyr', 'z_gyr']
         self.data = pd.DataFrame(np.array([0,0,0,0,0,0,0,0]).reshape(1, -1), columns = self.col)
-        wach("CMD", 0x11)
+        wr("CMD", 0x11)
     
     def capture(self):
         
