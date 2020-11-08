@@ -5,7 +5,7 @@ Created on Sat Oct 17 14:39:06 2020
 @author: Alexandre
 """
 
-import smbus2
+import smbus2 as smbus
 import spidev
 import RPi.GPIO as GPIO
 
@@ -44,11 +44,10 @@ class PiSensorAdapter():
             self.mSPI.max_speed_hz = int(10e6)
             
         elif self._config["name"].upper() in ["I2C"]:
-            self.bus = smbus2.SMBus(1)
+            self.bus = smbus.SMBus(1)
         
     def _read_register(self, data: int, payload_words: int):
-        #Implement burst_read here
-        #SPI reading
+
         if self._config["name"].upper() in ["SPI", "SPI3", "SPI4"]:
             reg = [data >> (payload_words * self.word_length)]         
             i=0
@@ -58,7 +57,7 @@ class PiSensorAdapter():
             result = self.mSPI.xfer2(reg)
             result.pop(0)
         elif self._config["name"].upper() in ["I2C"]:
-            reg = data >> ((payload_words * self.word_length) + 8)  
+            reg = data >> ((payload_words * self.word_length) + 8) & 0x7F
             result = [self.bus.read_byte_data(self.device_address, reg + i) for i in range(payload_words)] #burst read
         return result
     
@@ -70,6 +69,10 @@ class PiSensorAdapter():
                 reg.append((data >> (payload_words - i - 1) * self.word_length) & (2**self.word_length - 1))
                 i += 1      
             self.mSPI.xfer2(reg)
+        if self._config["name"].upper() in ["I2C"]:
+            reg = data >> ((payload_words * self.word_length) + 8) & 0x7F
+            value = data & 0xFF
+            self.bus.write_byte_data(self.device_address, reg, value)
         
         
 
