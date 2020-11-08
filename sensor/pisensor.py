@@ -70,7 +70,7 @@ class PiSensorAdapter():
                 i += 1      
             self.mSPI.xfer2(reg)
         if self._config["name"].upper() in ["I2C"]:
-            reg = data >> ((payload_words * self.word_length) + 8) & 0x7F
+            reg = data >> (payload_words * self.word_length) & 0x7F
             value = data & 0xFF
             self.bus.write_byte_data(self.device_address, reg, value)
         
