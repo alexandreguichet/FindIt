@@ -9,39 +9,26 @@ Created on Sat Oct 17 14:43:14 2020
 # Variables
 #================================================
 #the device address, put in there in which port it appears with i2c_detect.
-device_address = 0x68
+device_address = 0x69
 
 #the register, these are the addresses for BMI160,
 #replace by your own Cynric! 
-# register = {"chip_id": 0x00,
-#             "rev_id": 0x01,
-#             "acc_z_15_8": 0x17, 
-#             "acc_z_7_0": 0x16,
-#             "acc_y_15_8": 0x15,
-#             "acc_y_7_0": 0x14,
-#             "acc_x_15_8": 0x13,
-#             "acc_x_7_0": 0x12, 
-#             "gyr_z_15_8": 0x11,
-#             "gyr_z_7_0": 0x10,
-#             "gyr_y_15_8": 0x0F,
-#             "gyr_y_7_0": 0x0E, 
-#             "gyr_x_15_8": 0x0D,
-#             "gyr_x_7_0": 0x0C,
-#             "CMD": 0x7E,}
+register =  {"chip_id": 0x00,
+             "rev_id": 0x01,
+             "acc_z_15_8": 0x17, 
+             "acc_z_7_0": 0x16,
+             "acc_y_15_8": 0x15,
+             "acc_y_7_0": 0x14,
+             "acc_x_15_8": 0x13,
+             "acc_x_7_0": 0x12, 
+             "gyr_z_15_8": 0x11,
+             "gyr_z_7_0": 0x10,
+             "gyr_y_15_8": 0x0F,
+             "gyr_y_7_0": 0x0E, 
+             "gyr_x_15_8": 0x0D,
+             "gyr_x_7_0": 0x0C,
+             "CMD": 0x7E,}
 
-register = {"acc_z_15_8": 0x3F, 
-            "acc_z_7_0": 0x40,
-            "acc_y_15_8": 0x3D,
-            "acc_y_7_0": 0x3E,
-            "acc_x_15_8": 0x3B,
-            "acc_x_7_0": 0x3C, 
-            "gyr_z_15_8": 0x47,
-            "gyr_z_7_0": 0x48,
-            "gyr_y_15_8": 0x45,
-            "gyr_y_7_0": 0x46, 
-            "gyr_x_15_8": 0x43,
-            "gyr_x_7_0": 0x44,
-            "CMD": 0x6B,}
 #================================================
 # Settings
 #================================================
