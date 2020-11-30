@@ -5,12 +5,12 @@ Created on Sat Oct 17 14:39:06 2020
 @author: Alexandre
 """
 
-import smbus2 as smbus
-import spidev
-import RPi.GPIO as GPIO
+# import smbus2 as smbus
+# import spidev
+# import RPi.GPIO as GPIO
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
+# GPIO.setwarnings(False)
+# GPIO.setmode(GPIO.BCM)
 
 class PiSensorAdapter():
     
@@ -18,7 +18,7 @@ class PiSensorAdapter():
         self.name = name
         self.device_address = device_address
         self._config = config
-        self._open_sensor()
+        # self._open_sensor()
         self._word_length = 8
         
     @property
@@ -37,14 +37,14 @@ class PiSensorAdapter():
     def word_length(self, value):
         self._word_length = value
 
-    def _open_sensor(self):
-        if self._config["name"].upper() in ["SPI", "SPI3", "SPI4"]:
-            self.mSPI = spidev.SpiDev()
-            self.mSPI.open(0,0)
-            self.mSPI.max_speed_hz = int(10e6)
+    # def _open_sensor(self):
+    #     if self._config["name"].upper() in ["SPI", "SPI3", "SPI4"]:
+    #         self.mSPI = spidev.SpiDev()
+    #         self.mSPI.open(0,0)
+    #         self.mSPI.max_speed_hz = int(10e6)
             
-        elif self._config["name"].upper() in ["I2C"]:
-            self.bus = smbus.SMBus(1)
+    #     elif self._config["name"].upper() in ["I2C"]:
+    #         self.bus = smbus.SMBus(1)
         
     def _read_register(self, data: int, payload_words: int):
 
@@ -72,7 +72,7 @@ class PiSensorAdapter():
         if self._config["name"].upper() in ["I2C"]:
             reg = data >> (payload_words * self.word_length) & 0x7F
             value = data & 0xFF
-            self.bus.write_byte_data(self.device_address, reg, value)
+            # self.bus.write_byte_data(self.device_address, reg, value)
         
         
 

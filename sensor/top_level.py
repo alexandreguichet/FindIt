@@ -27,14 +27,14 @@ class FindItSensor():
         return data.iloc[1:]
             
     def capture(self):      
-        wr("CMD", 0x11)
+        wr("CMD", 0x11) #open accelerometer config
         data = rd("acc_x_7_0", 6) #burst read
         
         [x_pos_0, x_pos_1,
           y_pos_0, y_pos_1,
           z_pos_0, z_pos_1] = data[0]
        
-        wr("CMD", 0x15)
+        wr("CMD", 0x15) #open gyro config
         data = rd("gyr_x_7_0", 6)
         
         [x_gyr_0, x_gyr_1, 
