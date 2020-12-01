@@ -28,7 +28,9 @@ register =  {"chip_id": 0x00,
              "gyr_y_7_0": 0x0E, 
              "gyr_x_15_8": 0x0D,
              "gyr_x_7_0": 0x0C,
-             "CMD": 0x7E,}
+             "CMD": 0x7E,
+             "acc_range": 0x41,
+             "gyro_range": 0x43,}
 
 #================================================
 # Settings
