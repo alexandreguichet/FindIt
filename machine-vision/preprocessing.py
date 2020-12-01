@@ -77,7 +77,6 @@ Gaussian Filter
 image = cv2.imread('../data/GPTempDownload(0).jpg')
 image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-
 # plt.figure(figsize = [20, 20])
 # plt.subplot(221)
 # plt.imshow(image, cmap='gray', vmin = 0, vmax = 255)
@@ -105,8 +104,8 @@ magnitude = (gx.drop(df.index[0]).values**2 + gy.drop(columns = df.columns[0]).v
 # plt.title('gradiant in y', size=20)
 
 # plt.subplot(224)
-norm = LogNorm(magnitude.mean().mean() + 0.5 * magnitude.std().std(), magnitude.max().max())
-plt.imshow(magnitude, norm = norm, origin = "lower", cmap = 'gray')
+# norm = LogNorm(magnitude.mean().mean() + 0.5 * magnitude.std().std(), magnitude.max().max())
+# plt.imshow(magnitude, norm = norm, origin = "lower", cmap = 'gray')
 # plt.imshow(magnitude)
 # plt.title('grandiant magnitude', size=20)
 
@@ -121,24 +120,36 @@ np.log(magnitude, magnitude)
 result = magnitude.copy()
 result -= np.log(vmin)
 result /= (np.log(vmax) - np.log(vmin))
-plt.figure(figsize = [20, 20])
 
+magnitude = result.copy() * 255
 plt.imshow(result, cmap = "gray")
+plt.title("Custom Logarithmic Scaling Algorithm")
+plt.tight_layout()
+
 # magnitude = cv2.normalize(src = magnitude, dst=None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+
+# magnitude = cv2.imread('../data/Gradiants/log_norm_magnitude.png')
 # magnitude = cv2.cvtColor(magnitude, cv2.COLOR_BGR2GRAY)
 
-# ret,th1 = cv2.threshold(magnitude,127,255,cv2.THRESH_BINARY)
+ret,thresh1 = cv2.threshold(magnitude,20, 255,cv2.THRESH_BINARY)
+plt.figure()
+plt.imshow(thresh1, cmap='gray')
+plt.title('Binary Image, threshold = 20')
+plt.tight_layout()
+# ret,th1 = cv2.threshold(magnitude,magnitude.mean(),255,cv2.THRESH_BINARY)
 # th2 = cv2.adaptiveThreshold(magnitude,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
 #             cv2.THRESH_BINARY,11,2)
 # th3 = cv2.adaptiveThreshold(magnitude,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
 #             cv2.THRESH_BINARY,11,2)
+    
 
-# titles = ['Original Image', 'Global Thresholding (v = 127)',
+# titles = ['Original Image', 'Binary', 'Global Thresholding (v = 127)',
 #             'Adaptive Mean Thresholding', 'Adaptive Gaussian Thresholding']
-# images = [magnitude, th1, th2, th3]
+# images = [magnitude, thresh1, th1, th2, th3]
 
-# for i in range(4):
-#     plt.subplot(2,2,i+1),plt.imshow(images[i],'gray')
+
+# for i in range(5):
+#     plt.subplot(2,3,i+1),plt.imshow(images[i],'gray')
 #     plt.title(titles[i])
 #     plt.xticks([]),plt.yticks([])
 # plt.show()
