@@ -108,4 +108,8 @@ def sign(result_name: str, var_name: [str, int], bit_length: int) -> int:
     tb.set_variable(result_name, var)
     return var
     
-    
+def delay(t:[float, int] = 0) -> [float, int]:
+    """
+    Delay in [s]
+    """
+    tb.delay(t)

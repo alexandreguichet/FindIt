@@ -37,6 +37,7 @@ from tmla import read_and_save as rsav
 from tmla import write_and_check as wach
 from tmla import read as rd
 from tmla import write as wr
+from tmla import delay as dly
 from tmla import sign
 
 from pisensor import PiSensorAdapter

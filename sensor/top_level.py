@@ -28,6 +28,7 @@ class FindItSensor():
             
     def capture(self):      
         wr("CMD", 0x11) #open accelerometer config
+        dly(5e-3) #delay of 5ms to wait for accel stabilisation
         data = rd("acc_x_7_0", 6) #burst read
         
         [x_pos_0, x_pos_1,
@@ -35,6 +36,7 @@ class FindItSensor():
           z_pos_0, z_pos_1] = data[0]
        
         wr("CMD", 0x15) #open gyro config
+        dly(80e-3) #delay of 80ms to wait for gyro stabilisation
         data = rd("gyr_x_7_0", 6)
         
         [x_gyr_0, x_gyr_1, 
