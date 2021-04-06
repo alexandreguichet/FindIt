@@ -21,29 +21,33 @@ from skimage.color import rgb2gray
 
 from tools.utils import find_gray, to_hex, find_val, to_rgb, normalize_to_gray
 
-from image_calibration_test import calibrate_cam
+from image_calibration import calibrate_cam
 
-path = r"..\data\unprocessed"
-gray = [138, 129, 124]
+# path = r"..\data\unprocessed"
+# gray = [138, 129, 124]
 
-pictures = load_files(path, gray = False)
+# pictures = load_files(path, gray = False)
 
-image = pictures[3]
-image = calibrate_cam(image)
+# image = pictures[3]
+# image = calibrate_cam(image)
 
-grayscale = normalize_to_gray(rgb2gray(image))
-
-ss = [500, 2500]
+# grayscale = normalize_to_gray(rgb2gray(image))
 
 low_s = 730
 high_s = 1700
 
 def find_rail(src, val, orientation = 'v'):  
     if orientation == 'v':
+        size = np.shape(src)[0]
+        
+        low_s = int(size/2 - 0.1* size)
+        high_s = int(size/2 + 0.1*size)
+        
+        val 
         
         indexes = list()
         for v in val:
-            s = np.transpose(np.array([src[low_s:high_s, v], np.zeros(high_s-low_s)]))
+            s = np.transpose(np.array((src[low_s:high_s, v], np.zeros(high_s-low_s).astype(int))))
             s[abs(s[:,0] - np.mean(s[:,0])) < 0.5 * np.std(s[:,0]), 1] = 1
             
             ind = [i + low_s for i, e in enumerate(s[:,1]) if e ==1]
