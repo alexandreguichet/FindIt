@@ -1,1 +1,2 @@
-data/
+data/*
+!data/Crack_with_all_power/
