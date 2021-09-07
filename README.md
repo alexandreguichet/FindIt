@@ -7,3 +7,5 @@ Framework to visualise and analyse track defects on Raspberry Pi 4 with Python:
 - Sensor communication with Pi
 
 Detailed Idea and Video Explanation: https://www.youtube.com/watch?v=QuylfWpTdOo&list=PL2kV0kWfWM3CIzJsxYMH7DIDV_0zAp3Bp&index=2
+
+Created with: Lauren  Puumala, Max Aplas, Clay Konrad, Cynric Li
