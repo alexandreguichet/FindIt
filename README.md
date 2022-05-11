@@ -16,5 +16,5 @@ Data path from collection to result
 ![Crack and Shelling defect recognition](./research/Screenshot.jpg)  
 Crack and Shelling defect recognition
 
-\n
+
 Created with: Lauren  Puumala, Max Aplas, Clay Konrad, Cynric Li
