@@ -10,10 +10,8 @@ Detailed Idea and Video Explanation: https://www.youtube.com/watch?v=QuylfWpTdOo
 
 Screenshots: 
 
-![] (./research/TechnicalPresentation.png)
-Data path from collection to result
+![Data path from collection to result] (./research/TechnicalPresentation.png)
 
-![] (./research/Screenshot.jpg)
-Crack and Shelling defect recognition
+![Crack and Shelling defect recognition] (./research/Screenshot.jpg)
 
 Created with: Lauren  Puumala, Max Aplas, Clay Konrad, Cynric Li
