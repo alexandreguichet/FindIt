@@ -8,4 +8,12 @@ Framework to visualise and analyse track defects on Raspberry Pi 4 with Python:
 
 Detailed Idea and Video Explanation: https://www.youtube.com/watch?v=QuylfWpTdOo&list=PL2kV0kWfWM3CIzJsxYMH7DIDV_0zAp3Bp&index=2
 
+Screenshots: 
+
+![] (./research/TechnicalPresentation.png)
+Data path from collection to result
+
+![] (./research/Screenshot.jpg)
+Crack and Shelling defect recognition
+
 Created with: Lauren  Puumala, Max Aplas, Clay Konrad, Cynric Li
